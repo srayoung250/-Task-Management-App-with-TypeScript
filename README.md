@@ -1,75 +1,37 @@
-# React + TypeScript + Vite
+# Task Management Application (React & TypeScript)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A robust, type-safe task management web application built with **React**, **TypeScript**, **React Router**, and **React Bootstrap**. This application features global state management via the Context API, user session handling, and full CRUD (Create, Read, Update, Delete) capabilities for task organization.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+- **TypeScript Type Safety:** Built with explicit interfaces and type definitions for tasks and user states to catch runtime bugs early.
+- **Global State Management:** Leverages React's **Context API** (`TaskContext`) to share user authentication and task arrays seamlessly across components without prop drilling.
+- **Authentication Flow:** Simple mock login/session screen that routes users securely to their private dashboard.
+- **Task Dashboard:** Interactive CRUD interface allowing users to:
+  - Add new tasks with titles and descriptions.
+  - Toggle task completion status dynamically (with strike-through styling).
+  - Delete tasks instantly from the list.
+- **Responsive Styling:** Styled using **React Bootstrap** for a clean, modern UI out-of-the-box.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## Project Architecture & File Structure
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```text
+task-manager/
+├── src/
+│   ├── components/
+│   │   ├── Dashboard.tsx    # Main task management interface & CRUD actions
+│   │   └── Login.tsx        # User authentication form
+│   ├── context/
+│   │   └── TaskContext.tsx  # Global state provider and context definition
+│   ├── types/
+│   │   └── task.ts          # TypeScript interfaces for Task and User objects
+│   ├── App.tsx              # Root component housing BrowserRouter and Routes
+│   ├── main.tsx             # Application entry point with Bootstrap styles
+│   └── index.css            # Custom global styles
+├── package.json
+└── tsconfig.json
 ```
