@@ -22,3 +22,31 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+
+# Dependency folders (always ignore, these are huge)
+jspm_packages/
+node_modules/
+public/
+
+# Build and production outputs
+dist/
+build/
+out/
+
+# Environment variables and secrets (CRITICAL for security)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Editor/IDE specific configurations
+.vscode/
+.idea/
+*.suo
+*.ntvs*
