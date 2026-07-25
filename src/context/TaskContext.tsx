@@ -1,5 +1,16 @@
-import React, { createContext, useState, ReactNode } from "react";
-import { Task, User } from "../types/task";
+import { createContext, useState, ReactNode, FC } from "react";
+
+export interface Task {
+  id: string;
+  title: string;
+  description: string;
+  completed: boolean;
+}
+
+export interface User {
+  name: string;
+  isAuthenticated: boolean;
+}
 
 interface TaskContextType {
   tasks: Task[];
@@ -15,9 +26,7 @@ export const TaskContext = createContext<TaskContextType | undefined>(
   undefined,
 );
 
-export const TaskProvider: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
+export const TaskProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [tasks, setTasks] = useState<Task[]>([
     {
       id: "1",

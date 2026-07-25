@@ -103,14 +103,16 @@ export const Dashboard: React.FC = () => {
                 </div>
                 <div>
                   <Button
-                    variant="sm outline-secondary"
+                    variant="outline-secondary"
+                    size="sm"
                     className="me-2"
                     onClick={() => toggleTask(task.id)}
                   >
                     {task.completed ? "Undo" : "Complete"}
                   </Button>
                   <Button
-                    variant="sm outline-danger"
+                    variant="outline-danger"
+                    size="sm"
                     onClick={() => deleteTask(task.id)}
                   >
                     Delete
