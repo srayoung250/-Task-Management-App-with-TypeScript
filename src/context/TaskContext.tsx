@@ -1,4 +1,5 @@
-import { createContext, useState, ReactNode, FC } from "react";
+import { createContext, useState } from "react";
+import type { ReactNode, FC } from "react";
 
 export interface Task {
   id: string;
@@ -7,17 +8,10 @@ export interface Task {
   completed: boolean;
 }
 
-export interface User {
-  name: string;
-  isAuthenticated: boolean;
-}
-
 interface TaskContextType {
   tasks: Task[];
-  user: User;
-  login: (name: string) => void;
-  logout: () => void;
   addTask: (title: string, description: string) => void;
+  updateTask: (id: string, title: string, description: string) => void;
   deleteTask: (id: string) => void;
   toggleTask: (id: string) => void;
 }
@@ -42,11 +36,6 @@ export const TaskProvider: FC<{ children: ReactNode }> = ({ children }) => {
     },
   ]);
 
-  const [user, setUser] = useState<User>({ name: "", isAuthenticated: false });
-
-  const login = (name: string) => setUser({ name, isAuthenticated: true });
-  const logout = () => setUser({ name: "", isAuthenticated: false });
-
   const addTask = (title: string, description: string) => {
     const newTask: Task = {
       id: Date.now().toString(),
@@ -54,26 +43,36 @@ export const TaskProvider: FC<{ children: ReactNode }> = ({ children }) => {
       description,
       completed: false,
     };
-    setTasks([...tasks, newTask]);
+    setTasks((prev) => [...prev, newTask]);
+  };
+
+  const updateTask = (id: string, title: string, description: string) => {
+    setTasks((prev) =>
+      prev.map((task) =>
+        task.id === id ? { ...task, title, description } : task,
+      ),
+    );
   };
 
   const deleteTask = (id: string) => {
-    setTasks(tasks.filter((task) => task.id !== id));
+    setTasks((prev) => prev.filter((task) => task.id !== id));
   };
 
   const toggleTask = (id: string) => {
-    setTasks(
-      tasks.map((task) =>
+    setTasks((prev) =>
+      prev.map((task) =>
         task.id === id ? { ...task, completed: !task.completed } : task,
       ),
     );
   };
 
-  return (
-    <TaskContext.Provider
-      value={{ tasks, user, login, logout, addTask, deleteTask, toggleTask }}
-    >
-      {children}
-    </TaskContext.Provider>
-  );
+  const value: TaskContextType = {
+    tasks,
+    addTask,
+    updateTask,
+    deleteTask,
+    toggleTask,
+  };
+
+  return <TaskContext.Provider value={value}>{children}</TaskContext.Provider>;
 };
