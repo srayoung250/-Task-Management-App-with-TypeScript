@@ -1,21 +1,39 @@
-# Task Management Application (React & TypeScript)
+# Task Management App (TypeScript + React)
 
-A robust, type-safe task management web application built with **React**, **TypeScript**, **React Router**, and **React Bootstrap**. This application features global state management via the Context API, user session handling, and full CRUD (Create, Read, Update, Delete) capabilities for task organization.
-
----
+A task management application built with React, TypeScript, and Auth0 authentication. Users can sign in, create and manage tasks, mark them complete, and edit task details.
 
 ## Features
 
-- **TypeScript Type Safety:** Built with explicit interfaces and type definitions for tasks and user states to catch runtime bugs early.
-- **Global State Management:** Leverages React's **Context API** (`TaskContext`) to share user authentication and task arrays seamlessly across components without prop drilling.
-- **Authentication Flow:** Simple mock login/session screen that routes users securely to their private dashboard.
-- **Task Dashboard:** Interactive CRUD interface allowing users to:
-  - Add new tasks with titles and descriptions.
-  - Toggle task completion status dynamically (with strike-through styling).
-  - Delete tasks instantly from the list.
-- **Responsive Styling:** Styled using **React Bootstrap** for a clean, modern UI out-of-the-box.
+- **Authentication** — Secure login/logout via Auth0 (hosted login page, handles both sign-in and registration)
+- **Protected Routes** — Dashboard and task detail pages are only accessible when authenticated
+- **Task Dashboard** — View all tasks, create new ones, mark complete/pending, delete
+- **Task Details Page** — View full task info and edit title/description in place
+- **Form Validation** — Visible error messages on empty task titles
+- **Global State** — Task data managed via React Context API with typed hooks
+- **Type Safety** — TypeScript interfaces for `Task` and context shape throughout
 
----
+## Tech Stack
+
+- React + TypeScript
+- Vite
+- React Router
+- React Bootstrap
+- Auth0 (`@auth0/auth0-react`)
+
+### 1. Configure Auth0
+
+1. Create a free account at [auth0.com](https://auth0.com)
+2. Create a new Application → type **Single Page Web Application**
+3. In the app's **Settings** tab, note your **Domain** and **Client ID**
+4. Under **Application URIs**, set:
+   - **Allowed Callback URLs**: `http://localhost:5173/dashboard`
+   - **Allowed Logout URLs**: `http://localhost:5173`
+   - **Allowed Web Origins**: `http://localhost:5173`
+5. Save changes
+
+### 2. Environment variables
+
+Create a `.env` file in the project root:
 
 ## Project Architecture & File Structure
 
